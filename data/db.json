@@ -1,0 +1,12 @@
+{
+  "contacts": [
+    {
+      "id": "0078db14040",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "janedoe@email.com",
+      "phoneNumber": "(929) 745-3923",
+      "isFav": true
+    }
+  ]
+}
