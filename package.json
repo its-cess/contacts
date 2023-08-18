@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.32.0",
     "maska": "^2.1.10",
     "pinia": "^2.1.6",
     "uid": "^2.0.2",

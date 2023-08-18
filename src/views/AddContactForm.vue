@@ -84,6 +84,8 @@ export default {
       lastName.value = "";
       email.value = "";
       phoneNumber.value = "";
+
+      contactStore.getContacts();
       router.push("/");
     };
 

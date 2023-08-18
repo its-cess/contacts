@@ -47,7 +47,11 @@ export default {
     const contactStore = useContactStore();
 
     //fetch contacts
-    contactStore.getContacts();
+    const fetchContacts = async () => {
+      await contactStore.getContacts();
+    };
+
+    fetchContacts();
 
     //creates refs from whatever you destructure out of the store.
     //always you to use them in the template without having to add contactStore before it

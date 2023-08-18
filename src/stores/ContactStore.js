@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { supabase } from "../lib/supabaseClient";
 
 export const useContactStore = defineStore("contactStore", {
   state: () => ({
@@ -10,12 +11,12 @@ export const useContactStore = defineStore("contactStore", {
   getters: {
     favs() {
       //returns the contact if isFav is true
-      return this.contacts.filter((c) => c.isFav);
+      return this.contacts.filter((c) => c.is_fav);
     },
     favCount() {
       return this.contacts.reduce((prev, cur) => {
         //if the current item isFav is true, return the previous value + 1, otherwise just return the previous value
-        return cur.isFav ? prev + 1 : prev;
+        return cur.is_fav ? prev + 1 : prev;
       }, 0);
     },
     //if using an arrow fx like below, you cannot access the 'this' keyword.
@@ -28,57 +29,89 @@ export const useContactStore = defineStore("contactStore", {
     async getContacts() {
       this.isLoading = true;
 
-      const res = await fetch("http://localhost:3000/contacts");
-      const data = await res.json();
+      const { data } = await supabase.from("contacts").select("*");
       this.contacts = data;
 
       this.isLoading = false;
     },
     async addContact(contact) {
-      this.contacts.push(contact);
-
       this.isLoading = true;
-      const res = await fetch("http://localhost:3000/contacts", {
-        method: "POST",
-        body: JSON.stringify(contact),
-        headers: { "Content-Type": "application/json" }
-      });
 
-      if (res.error) {
-        console.log(res.error);
+      const { data, error } = await supabase
+        .from("contacts")
+        .insert([
+          {
+            first_name: `${contact.firstName}`,
+            last_name: `${contact.lastName}`,
+            email: `${contact.email}`,
+            phone_number: `${contact.phoneNumber}`
+          }
+        ])
+        .select();
+
+      if (error) {
+        console.log(error);
+        return;
       }
 
+      this.contacts.push(contact);
+
       this.isLoading = false;
+
+      return contact;
     },
     async deleteContact(id) {
+      this.isLoading = true;
+
+      const { error } = await supabase
+        .from("contacts")
+        .delete()
+        .eq("id", `${id}`);
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+
       this.contacts = this.contacts.filter((c) => {
         return c.id !== id;
       });
 
-      this.isLoading = true;
-      const res = await fetch("http://localhost:3000/contacts/" + id, {
-        method: "DELETE"
-      });
-
-      if (res.error) {
-        console.log(res.error);
-      }
-
       this.isLoading = false;
     },
     async toggleFav(id) {
+      this.isLoading = true;
+
       const contact = this.contacts.find((c) => c.id === id);
-      contact.isFav = !contact.isFav;
+      const toggleFav = !contact.is_fav;
+
+      const { data, error } = await supabase
+        .from("contacts")
+        .update({ is_fav: `${toggleFav}` })
+        .eq("id", `${id}`)
+        .select();
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      contact.is_fav = !contact.is_fav;
+      this.isLoading = false;
+    },
+    async updateContact(contactToUpdate) {
+      this.contacts.find((c) => c.id === contactToUpdate.id);
 
       this.isLoading = true;
-      const res = await fetch("http://localhost:3000/contacts/" + id, {
-        method: "PATCH",
-        body: JSON.stringify({ isFav: contact.isFav }),
-        headers: { "Content-Type": "application/json" }
-      });
+      const { data, error } = await supabase
+        .from("contacts")
+        .update(contactToUpdate)
+        .eq("id", `${contactToUpdate.id}`)
+        .select();
 
-      if (res.error) {
-        console.log(res.error);
+      if (error) {
+        console.log(error);
+        return;
       }
 
       this.isLoading = false;
@@ -86,29 +119,17 @@ export const useContactStore = defineStore("contactStore", {
     async searchContacts() {
       this.isLoading = true;
 
-      const res = await fetch("http://localhost:3000/contacts?q=" + this.query);
-      const data = await res.json();
-      this.contacts = data;
+      let { data, error } = await supabase
+        .from("contacts")
+        .select("*")
+        .ilike("first_name", `%${this.query}%`);
 
-      this.isLoading = false;
-    },
-    async updateContact(contactToUpdate) {
-      this.contacts.find((c) => c.id === contactToUpdate.id);
-
-      this.isLoading = true;
-      const res = await fetch(
-        "http://localhost:3000/contacts/" + contactToUpdate.id,
-        {
-          method: "PATCH",
-          body: JSON.stringify(contactToUpdate),
-          headers: { "Content-Type": "application/json" }
-        }
-      );
-
-      if (res.error) {
-        console.log(res.error);
+      if (error) {
+        console.log(error);
+        return;
       }
 
+      this.contacts = data;
       this.isLoading = false;
     }
   }

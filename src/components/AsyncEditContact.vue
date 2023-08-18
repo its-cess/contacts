@@ -9,7 +9,7 @@
           placeholder="First Name"
           id="firstName"
           name="firstName"
-          :value="contactData.firstName"
+          :value="contactData.first_name"
           @input="editFirstName"
         />
       </div>
@@ -20,7 +20,7 @@
           placeholder="Last Name"
           id="lastName"
           name="lastName"
-          :value="contactData.lastName"
+          :value="contactData.last_name"
           @input="editLastName"
         />
       </div>
@@ -44,7 +44,7 @@
           placeholder="Phone Number"
           id="phoneNumber"
           name="phoneNumber"
-          :value="contactData.phoneNumber"
+          :value="contactData.phone_number"
           @input="editPhoneNumber"
           v-maska
           data-maska="(###) ###-####"
@@ -66,6 +66,7 @@
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useContactStore } from "../stores/ContactStore";
+import { supabase } from "../lib/supabaseClient";
 import Toast from "./Toast.vue";
 
 const route = useRoute();
@@ -73,25 +74,28 @@ const router = useRouter();
 const contactStore = useContactStore();
 
 const getContactData = async () => {
-  try {
-    const res = await fetch(
-      `http://localhost:3000/contacts/${route.params.id}`
-    );
-    const contactData = await res.json();
-    return contactData;
-  } catch (err) {
-    console.log(err);
+  let { data, error } = await supabase
+    .from("contacts")
+    .select()
+    .eq("id", `${route.params.id}`);
+
+  if (error) {
+    console.log(error);
+    return;
   }
+
+  let contactData = data[0];
+  return contactData;
 };
 
 const contactData = await getContactData();
 
 const editFirstName = (event) => {
-  contactData.firstName = event.target.value;
+  contactData.first_name = event.target.value;
 };
 
 const editLastName = (event) => {
-  contactData.LastName = event.target.value;
+  contactData.last_name = event.target.value;
 };
 
 const editEmail = (event) => {
@@ -99,7 +103,7 @@ const editEmail = (event) => {
 };
 
 const editPhoneNumber = (event) => {
-  contactData.phoneNumber = event.target.value;
+  contactData.phone_number = event.target.value;
 };
 
 const showToast = ref(false);
@@ -115,10 +119,10 @@ const handleSubmit = () => {
   try {
     contactStore.updateContact({
       id: contactData.id,
-      firstName: contactData.firstName,
-      lastName: contactData.lastName,
+      first_name: contactData.first_name,
+      last_name: contactData.last_name,
       email: contactData.email,
-      phoneNumber: contactData.phoneNumber
+      phone_number: contactData.phone_number
     });
   } catch (err) {
     console.log(err);

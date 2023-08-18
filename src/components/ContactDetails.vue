@@ -3,7 +3,7 @@
     <div class="bg-blue-100 flex justify-end gap-3">
       <i
         class="fa-solid fa-heart cursor-pointer"
-        :class="{ ['text-red-600']: contact.isFav }"
+        :class="{ ['text-red-600']: contact.is_fav }"
         @click="contactStore.toggleFav(contact.id)"
       ></i>
       <i
@@ -13,11 +13,11 @@
       <i class="fa-solid fa-trash cursor-pointer" @click="toggleModal"> </i>
     </div>
     <div class="flex gap-1">
-      <h1>{{ contact.firstName }}</h1>
-      <h1>{{ contact.lastName }}</h1>
+      <h1>{{ contact.first_name }}</h1>
+      <h1>{{ contact.last_name }}</h1>
     </div>
     <div>
-      <p>{{ contact.phoneNumber }}</p>
+      <p>{{ contact.phone_number }}</p>
       <p>{{ contact.email }}</p>
     </div>
   </div>
@@ -26,8 +26,8 @@
     <div>
       <h1>Delete Contact?</h1>
       <p>
-        Are you sure you want to delete {{ contact.firstName }}
-        {{ contact.lastName }} from your contacts?
+        Are you sure you want to delete {{ contact.first_name }}
+        {{ contact.last_name }} from your contacts?
       </p>
       <p>
         This action cannot be undone and all information associated with this
