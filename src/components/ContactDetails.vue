@@ -28,18 +28,35 @@
   </div>
 
   <BaseModal :modalActive="modalActive" @close-modal="toggleModal">
-    <div>
-      <h1>Delete Contact?</h1>
-      <p>
-        Are you sure you want to delete {{ contact.first_name }}
-        {{ contact.last_name }} from your contacts?
+    <div class="p-3">
+      <h1 class="text-2xl text-slate-700 font-black mb-3 -mt-3">
+        Delete Contact?
+      </h1>
+      <p class="modal-p">
+        Are you sure you want to delete
+        <span class="font-semibold text-red-700"
+          >{{ contact.first_name }} {{ contact.last_name }}</span
+        >
+        from your contacts?
       </p>
-      <p>
+      <p class="modal-p">
         This action cannot be undone and all information associated with this
         contact will be lost.
       </p>
-      <button @click="toggleModal">Cancel</button>
-      <button @click="handleDelete(contact)">Delete</button>
+      <div class="flex flex-col-reverse w-full gap-3 mb-3 mt-4">
+        <button
+          @click="toggleModal"
+          class="bg-transparent border-2 border-slate-400 text-slate-400 p-2"
+        >
+          Cancel
+        </button>
+        <button
+          @click="handleDelete(contact)"
+          class="bg-red-700 rounded-md p-3 text-white"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </BaseModal>
 </template>
@@ -106,5 +123,13 @@ export default {
 <style scoped lang="postcss">
 i {
   @apply text-xl px-1 cursor-pointer hover:brightness-75;
+}
+
+.modal-p {
+  @apply text-xl mb-3;
+}
+
+button {
+  @apply rounded-md text-xl uppercase font-semibold shadow-button hover:brightness-75 tracking-wider;
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
   <div class="px-12 flex flex-col container">
     <p class="text-2xl py-4">Favorite Contacts ({{ favCount }})</p>
-    <div v-for="contact in favs" class="max-w-lg">
-      <ContactDetails :contact="contact" />
+    <div class="md:flex md:flex-row md:gap-3 md:max-w-full flex-wrap">
+      <div v-for="contact in favs">
+        <ContactDetails :contact="contact" />
+      </div>
     </div>
   </div>
 

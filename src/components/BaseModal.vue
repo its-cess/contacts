@@ -8,10 +8,10 @@
         <Transition name="modal-inner">
           <div
             v-if="modalActive"
-            class="p-4 bg-white self-start mt-32 max-w-screen-md"
+            class="p-4 bg-white self-start mt-32 max-w-screen-md rounded-md"
           >
             <i
-              class="fa-solid fa-x flex justify-end cursor-pointer"
+              class="fa-solid fa-x flex justify-end cursor-pointer text-slate-700 hover:text-slate-400"
               @click="$emit('close-modal')"
             ></i>
             <slot />
