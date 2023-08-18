@@ -54,7 +54,6 @@
 import { ref } from "vue";
 import { useContactStore } from "../stores/ContactStore";
 import { useRouter } from "vue-router";
-import { uid } from "uid";
 
 export default {
   setup() {
@@ -69,7 +68,6 @@ export default {
     const handleSubmit = () => {
       try {
         contactStore.addContact({
-          id: uid(),
           firstName: firstName.value,
           lastName: lastName.value,
           email: email.value,
