@@ -80,8 +80,6 @@ export const useContactStore = defineStore("contactStore", {
       this.isLoading = false;
     },
     async toggleFav(id) {
-      this.isLoading = true;
-
       const contact = this.contacts.find((c) => c.id === id);
       const toggleFav = !contact.is_fav;
 
@@ -97,7 +95,6 @@ export const useContactStore = defineStore("contactStore", {
       }
 
       contact.is_fav = !contact.is_fav;
-      this.isLoading = false;
     },
     async updateContact(contactToUpdate) {
       this.contacts.find((c) => c.id === contactToUpdate.id);

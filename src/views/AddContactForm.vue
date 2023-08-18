@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-lg m-4">
+  <div class="max-w-lg m-4 container mx-auto">
     <h1
       class="text-3xl pt-4 text-slate-700 font-semibold border-b-4 border-sky-600"
     >
@@ -43,7 +43,7 @@
         />
       </div>
       <div class="flex flex-col gap-4 mt-4">
-        <button class="btn bg-sky-600 text-white p-3">Add Contact</button>
+        <button class="btn bg-sky-600 text-white p-3">Add</button>
         <RouterLink
           :to="{ name: 'home' }"
           class="btn border-2 border-sky-600 bg-transparent text-sky-600 p-2"

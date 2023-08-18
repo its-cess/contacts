@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    class="container flex justify-center items-center mt-28 text-5xl fill-sky-600"
+  >
     <svg
       class="animate-spin"
       xmlns="http://www.w3.org/2000/svg"

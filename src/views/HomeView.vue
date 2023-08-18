@@ -5,7 +5,7 @@
   </div>
 
   <!-- ALL CONTACTS -->
-  <div class="px-12 flex flex-col container">
+  <div v-else class="px-12 flex flex-col container">
     <p class="text-2xl py-4">All Contacts ({{ totalContactCount }})</p>
     <div class="md:flex md:flex-row md:gap-3 md:max-w-full flex-wrap">
       <div v-for="contact in contacts">
@@ -71,7 +71,7 @@ export default {
     const triggerToast = (messageToSend) => {
       message.value = messageToSend;
       showToast.value = true;
-      setTimeout(() => (showToast.value = false), 3000);
+      setTimeout(() => (showToast.value = false), 1000);
     };
 
     //return everything so we can use it in the template

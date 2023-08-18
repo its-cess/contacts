@@ -27,6 +27,7 @@
     </div>
   </div>
 
+  <!-- CONFIRM DELETE MODAL -->
   <BaseModal :modalActive="modalActive" @close-modal="toggleModal">
     <div class="p-3">
       <h1 class="text-2xl text-slate-700 font-black mb-3 -mt-3">
@@ -43,7 +44,9 @@
         This action cannot be undone and all information associated with this
         contact will be lost.
       </p>
-      <div class="flex flex-col-reverse w-full gap-3 mb-3 mt-4">
+      <div
+        class="flex flex-col-reverse w-full gap-3 mb-3 mt-4 md:flex-row md:justify-end md:pr-12"
+      >
         <button
           @click="toggleModal"
           class="bg-transparent border-2 border-slate-400 text-slate-400 p-2"
@@ -130,6 +133,6 @@ i {
 }
 
 button {
-  @apply rounded-md text-xl uppercase font-semibold shadow-button hover:brightness-75 tracking-wider;
+  @apply rounded-md text-xl uppercase font-semibold shadow-button hover:brightness-75 tracking-wider md:px-7;
 }
 </style>
