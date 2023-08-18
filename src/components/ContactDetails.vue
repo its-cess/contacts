@@ -1,22 +1,27 @@
 <template>
-  <div class="border-black border-2">
-    <div class="bg-blue-100 flex justify-end gap-3">
+  <div class="bg-white shadow-button rounded-md mb-6 w-[325px]">
+    <div
+      class="bg-sky-600 rounded-t-md p-3 flex justify-end gap-3 text-sky-800"
+    >
       <i
-        class="fa-solid fa-heart cursor-pointer"
-        :class="{ ['text-red-600']: contact.is_fav }"
+        class="fa-solid fa-heart"
+        :class="{ ['text-rose-400']: contact.is_fav }"
         @click="contactStore.toggleFav(contact.id)"
       ></i>
-      <i
-        class="fa-solid fa-pencil cursor-pointer"
-        @click="goToEditContact(contact)"
-      ></i>
-      <i class="fa-solid fa-trash cursor-pointer" @click="toggleModal"> </i>
+      <i class="fa-solid fa-pencil" @click="goToEditContact(contact)"></i>
+      <i class="fa-solid fa-trash" @click="toggleModal"> </i>
     </div>
-    <div class="flex gap-1">
-      <h1>{{ contact.first_name }}</h1>
-      <h1>{{ contact.last_name }}</h1>
+
+    <div class="flex flex-row gap-1 font-black text-2xl text-slate-700 p-5">
+      <h1>
+        {{ contact.first_name }}
+      </h1>
+      <h1>
+        {{ contact.last_name }}
+      </h1>
     </div>
-    <div>
+
+    <div class="pb-5 px-5 text-slate-600 font-semibold">
       <p>{{ contact.phone_number }}</p>
       <p>{{ contact.email }}</p>
     </div>
@@ -97,3 +102,9 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="postcss">
+i {
+  @apply text-xl px-1 cursor-pointer hover:brightness-75;
+}
+</style>

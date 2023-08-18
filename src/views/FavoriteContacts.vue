@@ -1,5 +1,5 @@
 <template>
-  <div class="px-6">
+  <div class="px-12 flex flex-col container">
     <p class="text-2xl py-4">Favorite Contacts ({{ favCount }})</p>
     <div v-for="contact in favs" class="max-w-lg">
       <ContactDetails :contact="contact" />
@@ -7,8 +7,10 @@
   </div>
 
   <!-- BLANK STATE -->
-  <div v-if="favCount === 0">
-    <BlankState> No Favorites </BlankState>
+  <div v-if="favCount === 0" class="container py-7 text-center">
+    <BlankState>
+      <h1 class="text-3xl text-center mb-7">No Favorites</h1>
+    </BlankState>
   </div>
 </template>
 
