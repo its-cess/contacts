@@ -5,7 +5,7 @@
   </div>
 
   <!-- ALL CONTACTS -->
-  <div class="px-6">
+  <!-- <div class="px-6">
     <p class="text-2xl py-4">All Contacts ({{ totalContactCount }})</p>
     <div v-for="contact in contacts" class="max-w-lg">
       <ContactDetails
@@ -13,10 +13,10 @@
         @delete-toast="triggerToast('Contact Deleted!')"
       />
     </div>
-  </div>
+  </div> -->
 
   <!-- BLANK STATE -->
-  <div v-if="contacts.length === 0">
+  <div>
     <BlankState>
       <h1>No Contacts Yet</h1>
       <RouterLink :to="{ name: 'addContact' }">Add Contact</RouterLink>
