@@ -1,23 +1,27 @@
 <template>
-  <div class="m-6 px-6 py-2 bg-slate-400 max-w-lg">
-    <h1>Update Contact Information</h1>
-    <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
-      <div>
+  <div class="max-w-lg m-4">
+    <h1
+      class="text-3xl pt-4 text-slate-700 font-semibold border-b-4 border-sky-600"
+    >
+      Update Contact
+    </h1>
+    <form @submit.prevent="handleSubmit" class="flex flex-col gap-4 mt-8">
+      <div class="form-input">
         <label for="firstName">First Name</label>
         <input
           type="text"
-          placeholder="First Name"
+          placeholder="John"
           id="firstName"
           name="firstName"
           :value="contactData.first_name"
           @input="editFirstName"
         />
       </div>
-      <div>
+      <div class="form-input">
         <label for="lastName">Last Name</label>
         <input
           type="text"
-          placeholder="Last Name"
+          placeholder="Doe"
           id="lastName"
           name="lastName"
           :value="contactData.last_name"
@@ -25,11 +29,11 @@
         />
       </div>
 
-      <div>
+      <div class="form-input">
         <label for="email">Email Address</label>
         <input
           type="email"
-          placeholder="Email Address"
+          placeholder="johndoe@email.com"
           id="email"
           name="email"
           :value="contactData.email"
@@ -37,11 +41,11 @@
         />
       </div>
 
-      <div>
+      <div class="form-input">
         <label for="phoneNumber">Phone Number</label>
         <input
           type="text"
-          placeholder="Phone Number"
+          placeholder="(555) 111-2222"
           id="phoneNumber"
           name="phoneNumber"
           :value="contactData.phone_number"
@@ -50,9 +54,14 @@
           data-maska="(###) ###-####"
         />
       </div>
-      <button class="border-2 border-slate-800 bg-slate-200">
-        Update Contact
-      </button>
+      <div class="flex flex-col gap-4 mt-4">
+        <button class="btn bg-sky-600 text-white p-3">Update Contact</button>
+        <RouterLink
+          :to="{ name: 'home' }"
+          class="btn border-2 border-sky-600 bg-transparent text-sky-600 p-2"
+          >Cancel</RouterLink
+        >
+      </div>
     </form>
 
     <!-- TOAST NOTIFICATION -->
@@ -64,7 +73,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute, useRouter, RouterLink } from "vue-router";
 import { useContactStore } from "../stores/ContactStore";
 import { supabase } from "../lib/supabaseClient";
 import Toast from "./Toast.vue";
@@ -135,3 +144,29 @@ const handleSubmit = () => {
   }, 500);
 };
 </script>
+
+<style scoped lang="postcss">
+label {
+  @apply uppercase text-xs text-slate-400 font-semibold tracking-wider;
+}
+
+.form-input {
+  @apply flex flex-col;
+}
+
+input {
+  @apply indent-1 caret-slate-700 text-lg py-2 rounded-sm;
+}
+
+input:focus {
+  @apply outline-none border-2 border-sky-600;
+}
+
+::placeholder {
+  @apply text-slate-200;
+}
+
+.btn {
+  @apply rounded-md uppercase text-xl tracking-wider text-center font-semibold shadow-button hover:brightness-75;
+}
+</style>
