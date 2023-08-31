@@ -22,7 +22,9 @@ export const useContactStore = defineStore("contactStore", {
     //if using an arrow fx like below, you cannot access the 'this' keyword.
     //instead have to take the state as an argument
     totalContactCount: (state) => {
-      return state.contacts.length;
+      if (state.contacts.length != 0) {
+        return state.contacts.length;
+      }
     }
   },
   actions: {

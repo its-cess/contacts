@@ -6,7 +6,9 @@
 
   <!-- ALL CONTACTS -->
   <div v-else class="px-12 flex flex-col container">
-    <p class="text-2xl py-4">All Contacts ({{ totalContactCount }})</p>
+    <p v-if="contacts" class="text-2xl py-4">
+      All Contacts ({{ totalContactCount }})
+    </p>
     <div class="md:flex md:flex-row md:gap-3 md:max-w-full flex-wrap">
       <div v-for="contact in contacts">
         <ContactDetails
@@ -18,7 +20,7 @@
   </div>
 
   <!-- BLANK STATE -->
-  <div v-if="contacts.length === 0" class="container py-7 text-center">
+  <div v-if="!contacts" class="container py-7 text-center">
     <BlankState>
       <h1 class="text-3xl text-center mb-7">No Contacts Yet</h1>
       <RouterLink
